@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>fq2fa</title>
+        <script type="text/javascript">
+            function fastq_to_fasta () {
+                var fastq_in = document.getElementById("fastqin");
+                var fastq_arr = fastq_in.value.split('\n');
+                var converted = [];
+                for (i = 0; i < fastq_arr.length; i += 4) {
+                    var entry = fastq_arr.slice(i, i + 4);
+                    if (entry.length < 4) {
+                      continue
+                    }
+                    converted.push(fastq_arr[0].replace('@', '>'));
+                    converted.push(fastq_arr[1]);
+                }
+                var result = converted.join('\n');
+                var fasta_out = document.getElementById("fastaout");
+                fasta_out.value = result;
+            }
+         </script>
+    <body>
+        <div id="page-head">
+            fq2fajs is a (very) simple one page tool to convert your FASTQ format samples to FASTA format. It is a quick and dirty conversion and makes little to no checks to make sure your input nor output data make sense, so please validate on your own!
+        </div>
+        <div id="copypasta-version">
+            <p>If you have not so many sequences to convert, just paste them in the "FASTQ in" box  and press the button. Your FASTQ sequences will then be available in the "FASTA out" box below.</p>
+            <p>FASTQ in:</p>
+            <textarea id="fastqin"></textarea><button onclick="fastq_to_fasta()">convert</button>
+            <p>FASTA out:</p>
+            <textarea id="fastaout"></textarea>
+        </div>
+
+    </body>
+</html>
